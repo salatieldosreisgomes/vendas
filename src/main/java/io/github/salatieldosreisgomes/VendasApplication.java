@@ -1,5 +1,7 @@
 package io.github.salatieldosreisgomes;
 
+import io.github.salatieldosreisgomes.domain.entity.Cliente;
+import io.github.salatieldosreisgomes.domain.repositorio.Clientes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +21,15 @@ public class VendasApplication {
 
     @Cachorro
     private Animal animal;
+
+    @Bean
+    public CommandLineRunner init(@Autowired Clientes clientes){
+        return args -> {
+            Cliente cliente = new Cliente();
+            cliente.setNome("Salatiel");
+            clientes.salvar(cliente);
+        };
+    }
 
     @Bean(name = "executarAnimal")
     public CommandLineRunner executar(){
